@@ -15,7 +15,7 @@ for i in range(int(x)):
     for numbers in marks:
         sum += float(numbers)
         count += 1
-        s_list[name] = sum/count
+        s_list[name] = sum / count
 
 # print ("choose student ")
 user = input()
