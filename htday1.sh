@@ -9,7 +9,7 @@ sudo yum install -y  patch
 curl -L  https://raw.github.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 
 # add PATH
-echo 'export PATH="/home/student/.pyenv/bin:$PATH' >> /home/student/.zshrc
+echo 'export PATH="/home/student/.pyenv/bin:$PATH"' >> /home/student/.zshrc
 echo 'eval "$(pyenv init -)"' >> /home/student/.zshrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> /home/student/.zshrc
 
