@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+import psutil
+import time
+import argparse
+import json
+
+parser = argparse.ArgumentParser(description='argparser type and interval')
+parser.add_argument(
+    'time_interval',
+    help='time interval between snapshot, default 5 min',
+    type=int, nargs='?', const=1, default=300)
+parser.add_argument(
+    'record_format',
+    help='format file for record snapshot, default txt',
+    type=str, nargs='?', const=1, default='txt')
+args = parser.parse_args()
+
+
+class Snapshot:
+    def __init__(self):
+        self.cpu_load = psutil.cpu_percent(interval=5, percpu=True)
+        self.mem_u = psutil.virtual_memory().used
+        self.vir_mem_u = psutil.virtual_memory().percent
+        self.io_inf = psutil.disk_usage('/').percent
+        self.net_inf = psutil.net_io_counters().packets_sent
+
+    def __str__(self):
+        return 'cpu_load: %s mem_usage: %s virt_mem_usage: %s \
+        io_info: %s net_info:(%s) \n' % \
+         (self.cpu_load, self.mem_u, self.vir_mem_u, self.io_inf, self.net_inf)
+
+
+i = 1
+
+if args.record_format == 'txt':
+    while True:
+        a = Snapshot()
+        file_t = open('result.txt', 'a+')
+        file_t.write('SNAPSHOT: %d TIMESTAMP :%s ' % (i, time.ctime()))
+        file_t.write(str(a))
+        file_t.close()
+        i += 1
+        time.sleep(args.time_interval)
+elif args.record_format == 'json':
+    while True:
+        a = Snapshot()
+        file_j = open('result.json', 'a+')
+
+        rec = {
+            'SNAPSHOT': str(i),
+            'Time stamp': str(time.ctime()),
+            'CPU': a.cpu_load,
+            'MEM': a.mem_u,
+            'Virtual Memory': a.vir_mem_u,
+            'I/O': a.io_inf,
+            'NET': a.net_inf
+        }
+
+        file_j.write(json.dumps(rec, indent=3, sort_keys=False))
+        file_j.write('\n')
+        file_j.close()
+        i += 1
+        time.sleep(args.time_interval)
