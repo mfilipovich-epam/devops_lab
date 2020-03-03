@@ -5,11 +5,11 @@ fact = 1
 n = int(input())
 
 for i in range(1, n + 1):
-    fact = fact * i
+    fact *= i
 print(fact)
 # if n != 0 & n != 1 & n > 1:
 #    for i in range(1, n+1):
-#       fact = fact * i
+#       fact =* i
 #       print ("The factorial of " +str(n), "is :")
 
 # elif n == 0 or n == 1:

@@ -24,7 +24,4 @@ def check(move):
 
 move = input()
 robot_p = check(move)
-if robot_p == (0, 0):
-    print(True)
-else:
-    print(False)
+print (robot_p == (0, 0))

@@ -4,7 +4,7 @@ sum = 0
 count = 0
 s_list = {}
 # print  ("How many students: ")
-x = int(input())
+x = input()
 # print ("Enter " +str(x), " times information for student ")
 for i in range(int(x)):
     # print("Enter student's name, Math's mark, Phis's mark, Chem's mark:")
