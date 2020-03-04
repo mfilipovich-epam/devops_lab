@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+
+import requests
+import argparse
+import getpass
+
+
+parser = argparse.ArgumentParser(description='argparser for API GitHub')
+parser.add_argument("--own", nargs=1, help="define repo's owner")
+parser.add_argument("--rep", nargs=1, help="define name of repository")
+parser.add_argument("--pull", nargs=1, help="define number of pull request")
+parser.add_argument('--version', action='version', version='version  \
+    0.14 created by Maxim Filipovich', help="print version")
+parser.add_argument("--created", action="store_true", help="Date of creating")
+parser.add_argument("--closed", action="store_true", help="Date of closing")
+parser.add_argument("--commits", action="store_true", help="Number of commits")
+parser.add_argument("--linesadd", action="store_true", help="Lines added")
+parser.add_argument("--linesdel", action="store_true", help="Lines deleted")
+parser.add_argument("--useropen", action="store_true", help="User who open")
+parser.add_argument("--title", action="store_true", help="Pull request title")
+parser.add_argument("--labels", action="store_true", help="Attached labels")
+args = parser.parse_args()
+
+user = input('User: ')
+psw = getpass.getpass(prompt='Password: ', stream=None)
+
+try:
+    url = 'https://api.github.com/repos/' + args.own[0] + '/' \
+        + args.rep[0] + '/pulls/' + args.pull[0] + '.json'
+    req = requests.get(url, auth=(user, psw))
+    r = req.json()
+except Exception:
+    print('Something went wrong, please check input options')
+
+
+try:
+    if args.created:
+        print('Created:', r['created_at'])
+
+    if args.closed:
+        if not r['closed_at']:
+            print('Closure status: Pull request open')
+        else:
+            print('Closed: ', r['closed_at'])
+
+    if args.commits:
+        print('Number of commints:', r['commits'])
+
+    if args.linesadd:
+        print('Number of lines added:', r['additions'])
+
+    if args.linesdel:
+        print('Number of lines deleted:', r['deletions'])
+
+    if args.useropen:
+        print('User who opened:', r['head']['user']['login'])
+
+    if args.title:
+        print('Pull request title:', r['title'])
+
+    if args.labels:
+        for i in range(len(r['labels'])):
+            print('label defined:', r['labels'][i]['name'])
+except Exception:
+    print('Something went wrong, please check your input')
