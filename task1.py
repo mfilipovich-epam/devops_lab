@@ -3,20 +3,17 @@
 sum = 0
 count = 0
 s_list = {}
-# print  ("How many students: ")
+
 x = input()
-# print ("Enter " +str(x), " times information for student ")
+
 for i in range(int(x)):
-    # print("Enter student's name, Math's mark, Phis's mark, Chem's mark:")
-    inp_st = input()
-    stud = inp_st.split()
-    name = stud[0]
-    marks = stud[1:]
+    inp_st = input().split()
+    name = inp_st[0]
+    marks = inp_st[1:]
     for numbers in marks:
         sum += float(numbers)
         count += 1
-        s_list[name] = sum / count
+    s_list[name] = sum / count
 
-# print ("choose student ")
 user = input()
-print(s_list.get(user))
+print("{:.2f}".format(s_list.get(user)))

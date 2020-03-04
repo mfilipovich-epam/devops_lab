@@ -5,16 +5,16 @@ def check(move):
     x = y = 0
     Up = Down = Left = Right = 0
     for i in range(len(move)):
-        if (move[i] == 'U'):
+        if move[i] == 'U':
             Up += 1
 
-        elif(move[i] == 'D'):
+        elif move[i] == 'D':
             Down += 1
 
-        elif(move[i] == 'L'):
+        elif move[i] == 'L':
             Left += 1
 
-        elif(move[i] == 'R'):
+        elif move[i] == 'R':
             Right += 1
 
     x = Right - Left
