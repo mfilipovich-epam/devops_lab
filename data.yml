@@ -1,0 +1,9 @@
+apache_vhosts:
+- servername: maxserver1
+  documentroot: www.google.com
+  serveradmin: maxim
+  directorypath: /home/student/python/day1
+- servername: maxserver2
+  documentroot: www.onliner.by
+  serveradmin: mixer
+  directorypath: /home/student/python/day2
